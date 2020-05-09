@@ -57,7 +57,7 @@ function getAllWinners(wins, years) {
     let winner = wins(getFinals, fifaData);
     let year = years(getFinals, fifaData);
     let arrWins = [];
-    for(let i = 0; i < winner.length; i++){
+    for (let i = 0; i < winner.length; i++) {
         arrWins.push(`In ${year[i]}, ${winner[i]} won the world cup!`);
     }
     return arrWins;
@@ -72,17 +72,18 @@ Hint: Investigate your data to find "team initials"!
 Hint: use `.reduce` */
 
 function getCountryWins(data, initials) {
-    const wins = data.reduce((acc, game)=>{
-        if(game.Stage === "Final"){
+    initials = initials.toUpperCase()
+    const wins = data.reduce((acc, game) => {
+        if (game.Stage === "Final") {
             let winnerInitials;
-            if(game["Home Team Goals"] > game["Away Team Goals"]) {
+            if (game["Home Team Goals"] > game["Away Team Goals"]) {
                 winnerInitials = game["Home Team Initials"];
-            }else if(game["Home Team Goals"] < game["Away Team Goals"]) {
+            } else if (game["Home Team Goals"] < game["Away Team Goals"]) {
                 winnerInitials = game["Away Team Initials"];
-            }else{
+            } else {
                 winnerInitials = game["Away Team Initials"] + game["Home Team Initials"]
             }
-            if(winnerInitials === initials){
+            if (winnerInitials === initials) {
                 return acc + 1;
             }
         }
@@ -90,14 +91,7 @@ function getCountryWins(data, initials) {
     }, 0);
     return wins;
 };
-console.log(getCountryWins(fifaData, "ITA"));
-
-// function getCountryWins(data, initials) {
-//     let Initials = getFinals['Home Team Initials']
-//     let totalWins = data.reduce((acc, country) => acc + data + country.initials, 0)
-// }
-
-// console.log(getCountryWins(getWinners, 'ITA'));
+console.log(getCountryWins(fifaData, "ita"));
 
 /* Task 8: Write a function called `getAverageGoals` that accepts a parameter `data` and returns the the average number of home team goals and away team goals scored per match (Hint: use .reduce and do this in 2 steps) */
 
