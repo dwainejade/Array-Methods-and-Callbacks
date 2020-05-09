@@ -1,7 +1,6 @@
 import { fifaData } from './fifa.js';
 console.log(fifaData);
 
-
 // ⚽️ M  V P ⚽️ //
 
 /* Task 1: Investigate the data above. Practice accessing data by console.log-ing the following pieces of data 
@@ -12,7 +11,16 @@ console.log(fifaData);
 (d) Away Team goals for 2014 world cup final
 (e) Winner of 2014 world cup final */
 
-
+let final = fifaData.find(match => match.Stage === "Final" && match.Year === 2014);
+console.log(`Home Team: ${final["Home Team Name"]}`);
+console.log(`Away Team: ${final["Away Team Name"]}`);
+console.log(`Home Goals: ${final["Home Team Goals"]}`);
+console.log(`Away Goals: ${final["Away Team Goals"]}`);
+if (final["Home Team Goals"] > final["Away Team Goals"]) {
+    console.log(`Winner: ${final["Home Team Name"]}`)
+} else {
+    console.log(`Winner: ${final["Home Team Name"]}`);
+}
 
 /* Task 2: Create a function called  getFinals that takes `data` as an argument and returns an array of objects with only finals data */
 const getFinals = data => data.filter(match => match.Stage === 'Final');
@@ -95,14 +103,21 @@ console.log(getCountryWins(fifaData, "ita"));
 
 /* Task 8: Write a function called `getAverageGoals` that accepts a parameter `data` and returns the the average number of home team goals and away team goals scored per match (Hint: use .reduce and do this in 2 steps) */
 
-function getAverageGoals(/* code here */) {
-
-    /* code here */
-
+function getAverageGoals(data) {
+    let homeTeamGoalsAvg = data.reduce((goals, game, index) => {
+        let gameCounter = index + 1;
+        return goals + game["Home Team Goals"] / gameCounter;
+    }, 0);
+    let awayTeamGoalsAvg = data.reduce((goals, game, index) => {
+        let gameCounter = index + 1;
+        return goals + game["Away Team Goals"] / gameCounter;
+    }, 0);
+    return {
+        homeTeamGoalsAvg,
+        awayTeamGoalsAvg
+    }
 };
-
-getAverageGoals();
-
+console.log(getAverageGoals(fifaData));
 
 /// STRETCH 🥅 //
 
